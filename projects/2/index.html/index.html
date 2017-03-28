@@ -1,0 +1,250 @@
+<!DOCtype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.parseXML demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<style>
+  body
+  {background-color : black;}
+ div { width:160;
+ padding:10px;
+  border:5px solid red;
+  margin:5px;
+  color: red;
+ }
+
+
+
+
+</style>
+
+
+</head>
+<link rel="manifest" href="/manifest.json">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Bus Tracker App">
+  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+  {
+  "name": "Weather",
+  "short_name": "Weather",
+  "icons": [{
+    "src": "images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }, {
+      "src": "images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "images/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    }, {
+      "src": "images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, {
+      "src": "images/icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#3E4EB8",
+  "theme_color": "#2F3BA2"
+}
+<body>
+<div id=bus>
+ 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions?key=DAJwE49icruvCzfyGQcetvYL3&rt=152&stpid=12525&format=json";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "DAJwE49icruvCzfyGQcetvYL3",
+                      "format":"json", 
+                      "rt": 152,
+                      "stpid": 12525,
+                      "direction": "Eastbound",
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#bus").append("<h1>152 Eastbound Cambell</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#bus").append(
+                    "Rt: " 
+                    + v.rt 
+                    + " Direction "
+                    + v.des
+                    + "<br>"
+                    + "Arrival Time: "
+                    + v.prdctdn 
+                    + " Min"
+                    + "<br>"
+                  
+                  
+                  
+                  );
+                
+              })
+
+            });
+        });
+            
+</script>
+  <script>
+  
+   $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions?key=DAJwE49icruvCzfyGQcetvYL3&rt=152&stpid=12525&format=json";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "DAJwE49icruvCzfyGQcetvYL3",
+                      "format":"json", 
+                      "rt": 152,
+                      "stpid": 12569,
+                      "direction": "Westbound",
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#bus").append("<h1>152 Westbound Western</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#bus").append(
+                   "Rt: " 
+                    + v.rt 
+                    + " Direction "
+                    + v.des
+                    + "<br>"
+                    + "Arrival Time: "
+                    + v.prdctdn 
+                    + " Min"
+                    + "<br>"
+                  
+                  
+                  
+                  );
+                
+              })
+
+            });
+        });
+        </script>
+
+<script>
+
+ $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions?key=DAJwE49icruvCzfyGQcetvYL3&rt=152&stpid=12525&format=json";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "DAJwE49icruvCzfyGQcetvYL3",
+                      "format":"json", 
+                      "rt": 49,
+                      "stpid": 8195,
+                      "direction": "Southbound",
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#bus").append("<h1>49 Southbound Addison</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#bus").append(
+                    "Rt: " 
+                    + v.rt 
+                    + " Direction "
+                    + v.des
+                    + "<br>"
+                    + "Arrival Time: "
+                    + v.prdctdn 
+                    + " Min"
+                    + "<br>"
+                  
+                  
+                  
+                  );
+                
+              })
+
+            });
+        });
+
+</script>
+
+  <script>
+    $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions?key=DAJwE49icruvCzfyGQcetvYL3&rt=152&stpid=12525&format=json";
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "DAJwE49icruvCzfyGQcetvYL3",
+                      "format":"json", 
+                      "rt": "X49",
+                      "stpid": 8195,
+                      "direction": "Southbound",
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#bus").append("<h1>X49 Southbound- Addison</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#bus").append(
+                    "Rt: " 
+                    + v.rt 
+                    + " Direction "
+                    + v.des
+                    + "<br>"
+                    + "Arrival Time: "
+                    + v.prdctdn 
+                    + " Min"
+                    + "<br>"
+                  
+                  
+                  
+                  );
+                
+              })
+
+            });
+        });
+  </script>
+
+</body>
+</html>
