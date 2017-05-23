@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <title>Find Crimes!</title>
+        <style>
+            p, h1 {font-family: "Courier New", Courier, monospace;}
+            p {font-size:1.0em;line-height:1.4em; margin-left: 24px;}
+            pre {font-size: 1em;}
+            
+           p { font-size: 20px; }
+           p {    font-weight: 600;}
+           
+            div {
+                background-color:gray; 
+                border: 2px solid blue; 
+                border-radius: 5px;
+                min-height:75px;
+                padding:15px;
+            }
+
+           h1 { color: blue; }
+               
+          
+           img {
+    display: block;
+    margin: auto;
+}
+           
+           
+        </style>
+    </head>
+    <body>
+    <h1>Search For Crimes in Your Area! </h1
+    
+    
+    <!-- div for instructions and form -->
+    <div id="form">
+        <p>
+            Enter your District number to find crimes in your area.  Enter your District as (00A) if in single digits or (0BB) if in double digits. Example: 001 or 010. 
+            <br>
+            
+                <input id="txtCrime" type="text" placeholder="Enter your District">
+                
+                
+             <select id= "dropDown" name="dropDown">
+                                
+                            
+          <option value="BURGLARY">BURGLARY</option>
+          <option value="ROBBERY">ROBBERY</option>
+          <option value="ASSAULT">ASSAULT</option>
+          <option value="NARCOTICS">NARCOTICS</option>
+          <option value="THEFT">THEFT</option>
+          <option value="CRIMINAL TRESPASS">CRIMINAL TRESPASS</option>
+          <option value="MOTOR VEHICLE THEFT">MOTOR VEHICLE THEFT</option>
+          <option value="DECEPTIVE PRACTICE">DECEPTIVE PRACTICE</option>
+        </select>
+
+                
+                
+               
+                
+                
+                
+                
+                <button type="button" id="btnSearch" disabled="disabled">Search!</button>
+           
+               
+               
+               
+       
+    </div>
+    
+   <img src="http://vignette3.wikia.nocookie.net/dresdenfiles/images/d/d9/Chicago_Police_Logo.jpg/revision/latest?cb=20161209100908" alt="CPD" width="400" height="300">
+   
+   
+   
+   
+    <!-- a div to store the results -->
+    <div id="results">
+        <p>By:Brian Garcia and Elian Gonzalez</p>
+        
+        
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        /*
+            This script retrieves towed vehicle data for the entered plate
+        */
+        
+       
+        $(function () {    // don't execute code until DOM is ready
+            /*
+                most code should wait for the button click event,
+                but creating and setting some variables *can* be 
+                done when the page loads
+            */
+
+            // api endpoint for the towed vehicle data
+            var baseURL = 'https://data.cityofchicago.org/resource/6zsd-86xi.json';
+            
+
+          
+            // the url; we'll append the plate number in button click
+            var url = baseURL;   
+            
+            
+            
+            console.log (url);
+            
+            // start with button disabled
+            $("#btnSearch").attr("disabled", true);
+            
+            // enable button only if text in input box
+            $("#txtCrime").keyup(function(){   // change event doesn't work, so using keyup 
+                if ($("#txtCrime").val() == "") {   // if value is empty
+                    $("#btnSearch").attr("disabled", true)  // set disabled
+                }
+                else {
+                    $("#btnSearch").attr("disabled", false)
+                }
+            })
+            
+         
+           
+            // we want to get the data and display on button click
+            $("#btnSearch").on("click", function() {
+                
+                // each time we search, we need to clear the results
+                $("#results").html("");
+                 
+                // get the input plate number
+                //   and append to url in getJSON call
+                var crimeDist = $("#txtCrime").val();
+                
+                var typeCrime = $("#dropDown").val()
+                
+                console.log(dropDown);
+                
+                var urlWithParams = baseURL + "?district=" + crimeDist + "&primary_type=" + typeCrime;
+                console.log(urlWithParams);  
+                
+                // verify that it's being created correctly
+           
+                // jQuery command to retrieve json data
+                
+                $.getJSON(urlWithParams)       // append the plateNum
+                    .done (function (data) {    // execute this function when getJSON is done
+                        
+                        console.log(data);
+                        
+                        var numRecords = data.length;  // the length of the array
+                  
+                       
+                        
+                        // notify of number of records
+                        var message = 
+                            "<p>Records found: "
+                            + numRecords
+                            + "</p>"
+                        
+                        $("#results").append(message);
+                        
+                        
+                        // only loop records if count > 0
+                        if (numRecords > 0) {
+                            // loop through the records
+                            $.each (data , 
+                                function (index, value) {
+                                    // append content to the body 
+                                    var html = "<h2>" 
+                                        + value.primary_type+ " "
+                                        + "</h2>"
+                                        + "<p>" 
+                                       
+                                        + "Date:  "
+                                        + value.date 
+                                        + "<br>"
+                                        + " Adress: "
+                                        + value.block
+                                        + "<br> Description:  "
+                                        + value.description
+                                        + "<br>District: "
+                                        + value.district
+                                        
+                                        + " <a href='http://home.chicagopolice.org/community/districts/" 
+                                        + value.district +"'>"
+                                        + "CPD</a>"
+                                        
+                                   
+                                   
+                                   
+                                   
+                                    $("#results").append(html);
+     
+                            
+                                           0         
+                                }  // end of function
+                            
+                            ); // end of each loop                            
+                        
+                        }   // end of if statement
+
+                    })  // end of getJSON
+            
+            })  // end of button click event
+        
+        }) // end of jQuery wrapper
+        
+        
+    </script>
+    
+</body>
+</html>
