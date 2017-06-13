@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <style>
+   
+            canvas {
+              border:3px solid blue;
+              background-color:black;
+            }
+            #player {
+              display:none;
+            }
+          
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="600" height="600">
+    <img id="LilPump" src="Projects/images.png"> 
+    <img id="Money" src="Projects/money.png">
+    <img id="Jcole" src="Projects/jcole2.png">
+    </canvas>
+    
+    <script>
+      var livesRemaining = 3;
+      var score = 0;
+      var level = 1;
+      var paused = false;
+      /*
+      
+        main animation loop
+      */
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      
+      var image = document.getElementById("LilPump");
+      var LilPumpX = 20
+      var LilPumpY = 100
+      
+      var image1 = document.getElementById("cherry")
+      var cherryX = 200
+      var cherryY = Math.floor(Math.random() * 500)
+      
+      var image2 = document.getElementById("ghost")
+      var ghostX = 200
+      var ghostY = Math.floor(Math.random() * 500)
+      
+      function animate() {
+        // clear canvas
+          ctx.clearRect(0,0,canvas.width,canvas.height); 
+        
+        // draw background
+        
+        // draw player
+          ctx.drawImage(image, LilPumpX, LilPumpY, 50, 50);
+        // draw harm
+          ctx.drawImage(image2, ghostX, ghostY, 50, 50);
+          ghostX = ghostX - 1.5
+        // check for and handle edge condition
+          if (ghostX < 0)
+          {
+            ghostX = canvas.width;
+            ghostY = Math.floor(Math.random() * 560);
+          }
+        // draw benefit
+           ctx.drawImage(image1, cherryX, cherryY, 50, 50);
+           cherryX = cherryX - 1.5
+        // check for and handle edge condition
+          if (cherryX < 0 )
+          {
+            cherryX = canvas.width;
+            cherryY = Math.floor(Math.random() * 560);
+          }   
+        // check for harm collision
+          if (pacmanX < ghostX + 35 && LilPumpX + 35 > ghostX && LilPumpY < ghostY + 35 && LilPumpY + 35 > ghostY) 
+          {
+            livesRemaining = livesRemaining - 1
+            ghostX = canvas.width;
+            ghostY = Math.floor(Math.random() * 560);
+          } 
+          if (livesRemaining <= 0)
+          {
+            paused = true;  
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+          }  
+        // check for benefit collision
+          if (pacmanX < cherryX + 35 && LilPumpX + 35 > cherryX && LilPumpY < cherryY + 35 && LilPumpY + 35 > cherryY) 
+          {
+            score = score + 100
+            cherryX = canvas.width;
+            cherryY = Math.floor(Math.random() * 560); 
+          }
+        // draw text (lives and score)
+          ctx.font = "15px Arial";
+          ctx.fillStyle = "white";
+          ctx.fillText("Lives: " + livesRemaining, 10, 30);
+          
+          ctx.font = "15px Arial";
+          ctx.fillStyle = "white";
+          ctx.fillText("Score: " + score, 10, 60);
+          
+        //  if the game has not been paused, 
+          if (!paused) {
+            requestAnimationFrame(animate);
+          }
+        
+      }
+          animate();
+          
+      //  event handler for moving player
+      //    use onKeyPress event, and change the player.y value based on the up/down keys
+       document.addEventListener("keydown", move )
+        function move (e) {
+         
+          if (e.keyCode == 40){
+            LilPumpY = LilPumpY + 10 
+          }
+          if (e.keyCode == 38){
+            LilPumpY = LilPumpY - 10 
+          }
+           
+        };
+      
+      
+      
+      
+    </script>
+    
+    
+  </body>
+</html>
