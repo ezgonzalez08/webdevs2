@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
+    <title>LilPump Project</title>
     <style>
    
             canvas {
-              border:3px solid blue;
-              background-color:black;
+              border:3px solid black;
+               background-image : url("Projects/XXL_magazine.png");
             }
             #player {
               display:none;
@@ -17,10 +17,10 @@
     </style>
   </head>
   <body>
-    <canvas id="myCanvas" width="600" height="600">
-    <img id="LilPump" src="Projects/images.png"> 
-    <img id="Money" src="Projects/money.png">
-    <img id="Jcole" src="Projects/jcole2.png">
+    <canvas id="myCanvas" width="1250" height="675">
+    <img id="lilpump" src="Projects/images.png"> 
+    <img id="money" src="Projects/money.png">
+    <img id="jcole" src="Projects/jcole2.png">
     </canvas>
     
     <script>
@@ -35,17 +35,17 @@
       var canvas = document.getElementById("myCanvas");
       var ctx = canvas.getContext("2d");
       
-      var image = document.getElementById("LilPump");
-      var LilPumpX = 20
-      var LilPumpY = 100
+      var image = document.getElementById("lilpump");
+      var lilpumpX = 20
+      var lilpumpY = 100
       
-      var image1 = document.getElementById("cherry")
-      var cherryX = 200
-      var cherryY = Math.floor(Math.random() * 500)
+      var image1 = document.getElementById("money")
+      var moneyX = 200
+      var moneyY = Math.floor(Math.random() * 500)
       
-      var image2 = document.getElementById("ghost")
-      var ghostX = 200
-      var ghostY = Math.floor(Math.random() * 500)
+      var image2 = document.getElementById("jcole")
+      var jcoleX = 200
+      var jcoleY = Math.floor(Math.random() * 500)
       
       function animate() {
         // clear canvas
@@ -54,31 +54,31 @@
         // draw background
         
         // draw player
-          ctx.drawImage(image, LilPumpX, LilPumpY, 50, 50);
+          ctx.drawImage(image, lilpumpX, lilpumpY, 50, 50);
         // draw harm
-          ctx.drawImage(image2, ghostX, ghostY, 50, 50);
-          ghostX = ghostX - 1.5
+          ctx.drawImage(image2, jcoleX, jcoleY, 50, 50);
+          jcoleX = jcoleX - 1.5
         // check for and handle edge condition
-          if (ghostX < 0)
+          if (jcoleX < 0)
           {
-            ghostX = canvas.width;
-            ghostY = Math.floor(Math.random() * 560);
+            jcoleX = canvas.width;
+            jcoleY = Math.floor(Math.random() * 560);
           }
         // draw benefit
-           ctx.drawImage(image1, cherryX, cherryY, 50, 50);
-           cherryX = cherryX - 1.5
+           ctx.drawImage(image1, moneyX, moneyY, 50, 50);
+           moneyX = moneyX - 1.5
         // check for and handle edge condition
-          if (cherryX < 0 )
+          if (moneyX < 0 )
           {
-            cherryX = canvas.width;
-            cherryY = Math.floor(Math.random() * 560);
+            moneyX = canvas.width;
+            moneyY = Math.floor(Math.random() * 560);
           }   
         // check for harm collision
-          if (pacmanX < ghostX + 35 && LilPumpX + 35 > ghostX && LilPumpY < ghostY + 35 && LilPumpY + 35 > ghostY) 
+          if (lilpumpX < jcoleX + 35 && lilpumpX + 35 > jcoleX && lilpumpY < jcoleY + 35 && lilpumpY + 35 > jcoleY) 
           {
             livesRemaining = livesRemaining - 1
-            ghostX = canvas.width;
-            ghostY = Math.floor(Math.random() * 560);
+            jcoleX = canvas.width;
+            jcoleY = Math.floor(Math.random() * 560);
           } 
           if (livesRemaining <= 0)
           {
@@ -86,19 +86,19 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
           }  
         // check for benefit collision
-          if (pacmanX < cherryX + 35 && LilPumpX + 35 > cherryX && LilPumpY < cherryY + 35 && LilPumpY + 35 > cherryY) 
+          if (lilpumpX < moneyX + 35 && lilpumpX + 35 > moneyX && lilpumpY < moneyY + 35 && lilpumpY + 35 > moneyY) 
           {
             score = score + 100
-            cherryX = canvas.width;
-            cherryY = Math.floor(Math.random() * 560); 
+            heartX = canvas.width;
+            heartY = Math.floor(Math.random() * 560); 
           }
         // draw text (lives and score)
           ctx.font = "15px Arial";
-          ctx.fillStyle = "white";
+          ctx.fillStyle = "black";
           ctx.fillText("Lives: " + livesRemaining, 10, 30);
           
           ctx.font = "15px Arial";
-          ctx.fillStyle = "white";
+          ctx.fillStyle = "black";
           ctx.fillText("Score: " + score, 10, 60);
           
         //  if the game has not been paused, 
@@ -115,10 +115,10 @@
         function move (e) {
          
           if (e.keyCode == 40){
-            LilPumpY = LilPumpY + 10 
+            lilpumpY = lilpumpY + 10 
           }
           if (e.keyCode == 38){
-            LilPumpY = LilPumpY - 10 
+            lilpumpY = lilpumpY - 10 
           }
            
         };
